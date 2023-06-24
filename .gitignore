@@ -8,6 +8,8 @@
 .vscode/
 wechatbot
 storage.json
+wechatbot.log
+wechatbot.pid
 
 # Test binary, built with `go test -c`
 *.test

@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/qingconglaixueit/wechatbot/config"
-	"github.com/qingconglaixueit/wechatbot/pkg/logger"
+	"github.com/chcbz/wechatbot/config"
+	"github.com/chcbz/wechatbot/pkg/logger"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -50,6 +50,14 @@ type ChatGPTRequestBody struct {
 //-d '{"model": "text-davinci-003", "prompt": "give me good song", "temperature": 0, "max_tokens": 7}'
 func Completions(msg string) (string, error) {
 	cfg := config.LoadConfig()
+	
+	if cfg.Model == "gpt-3.5-turbo" {
+		var req MyGpt
+	        req.C = NewGpr35()
+	        var reply = req.Gpt3P5(msg)
+		return reply, nil
+	}
+
 	requestBody := ChatGPTRequestBody{
 		Model:            cfg.Model,
 		Prompt:           msg,
